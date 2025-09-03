@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHOPER – Shopee Product Research Tool | Beranda</title>
+    
+    <!-- Deskripsi untuk SEO -->
+    <meta name="description" content="Temukan semua link penting dan informasi tentang SHOPER, alat riset produk Shopee yang powerfull.">
+    
+    <!-- Meta Tag Open Graph untuk Preview Link -->
+    <meta property="og:title" content="SHOPER – Shopee Product Research Tool">
+    <meta property="og:description" content="Simple | Mudah dipahami | Powerfull. Alat riset produk untuk Shopee.">
+    <meta property="og:image" content="https://shoper-beranda.vercel.app/icon-shoper.png">
+    <meta property="og:url" content="https://shoper-beranda.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Hubungkan ke file CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="icon-shoper.png" type="image/png">
+</head>
+<body>
+
+    <main class="container">
+        <!-- Bagian Profil -->
+        <header id="profile" class="profile-container">
+            <img 
+                id="profile-picture" 
+                src="logo-shoper.png"
+                class="profile-picture"
+            >
+            <h1 id="user-name" class="user-name">SHOPER – Shopee Product Research Tool</h1>
+            <p id="user-bio" class="user-bio">Simple | Mudah dipahami | Powerfull</p>
+        </header>
+
+        <!-- Kontainer untuk semua link, akan diisi oleh JavaScript -->
+        <section id="links-container" class="links-container"></section>
+
+        <!-- Bagian Ikon Sosial Media -->
+        <footer id="socials-container" class="socials-container"></footer>
+    </main>
+
+    <!-- Kode untuk Modal Popup Terima Kasih -->
+    <div id="welcome-modal-overlay" class="modal-overlay hidden"></div>
+    <div id="welcome-modal" class="modal hidden">
+        <h2>Terima Kasih! 🙏</h2>
+        <p>Terima kasih telah menginstal ekstensi SHOPER. Kami harap alat ini bisa membantu dan mempermudah pekerjaan Anda.</p>
+        <button id="modal-close-btn" class="modal-button">Mulai Jelajahi</button>
+    </div>
+
+    <!-- Hubungkan ke file JavaScript (WAJIB di akhir body) -->
+    <script src="app.js"></script>
+</body>
+</html>
+
