@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     // ====================================================================
-    // PUSAT KONTROL: Edit data Anda di sini
+    // PUSAT KONTROL
     // ====================================================================
 
     const profileData = {
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const linksData = [
         {
-            title: "Fitur & Cara Penggunaan",
+            title: "Cara Penggunaan",
             url: "https://shoper.myscalev.com/shoper-shopee-product-research-tool"
         },
         {
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
     renderLinks();
     renderSocials();
     
-    // --- [DIPERBAIKI] Logika Popup dipindahkan ke sini ---
+    // --- Logika Popup ---
     
     // Cek apakah URL mengandung parameter '?ref=install'
     const params = new URLSearchParams(window.location.search);
@@ -114,11 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Tampilkan modal setelah halaman dimuat sebentar
         setTimeout(showModal, 500); // Jeda 0.5 detik untuk efek dramatis
-
-        // Tambahkan event listener untuk menutup modal
         closeBtn.addEventListener('click', hideModal);
-        overlay.addEventListener('click', hideModal);
     }
 });
-
 
