@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const profileData = {
         name: "SHOPER – Shopee Product Research Tool",
-        bio: "Simple | Mudah dipahami | Powerfull",
+        bio: "Simple | Mudah di-pahami | Powerfull",
         picture: "logo-shoper.png"
     };
 
@@ -55,6 +55,12 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('user-bio').textContent = profileData.bio;
         document.title = `${profileData.name} | Beranda`;
     }
+    function renderProfile() {
+        // [DIUBAH] Hanya mengisi bio dan title. Baris untuk gambar dan nama dihapus.
+        document.getElementById('user-bio').textContent = profileData.bio;
+        document.title = `SHOPER – Shopee Product Research Tool | Beranda`;
+    }
+
 
     // Fungsi untuk merender semua link
     function renderLinks() {
@@ -117,5 +123,4 @@ document.addEventListener('DOMContentLoaded', function() {
         closeBtn.addEventListener('click', hideModal);
     }
 });
-
 

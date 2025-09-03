@@ -49,14 +49,33 @@ body {
     animation: fadeInUp 0.8s 0.2s forwards;
 }
 
-.profile-picture {
-    background-color: #FF6B00;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 15px var(--shadow-color);
+.header-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px; /* Jarak ke bio */
+}
+
+.header-logo .logo-icon {
+    stroke: var(--brand-primary);
+    width: 48px;
+    height: 48px;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.header-logo h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin: 0;
+    background: linear-gradient(45deg, var(--brand-primary), var(--brand-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
 
 .user-name {
@@ -121,7 +140,7 @@ body {
 
 .social-icon:hover {
     transform: scale(1.2);
-    /* [DIUBAH] Warna hover menjadi oranye */
+    /* Warna hover menjadi oranye */
     color: var(--brand-primary);
 }
 
@@ -212,5 +231,4 @@ body {
 /* Utility class untuk menyembunyikan elemen */
 .hidden {
     display: none;
-
 }
