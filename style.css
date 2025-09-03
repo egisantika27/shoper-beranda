@@ -2,7 +2,7 @@
 :root {
     --background-start: #f4f4f4;
     --background-end: #e9e9e9;
-    --container-bg: #FF6B00;
+    --container-bg: #e9e9e9;
     --text-primary: #1a1a1a;
     --text-secondary: #555555;
     
@@ -212,4 +212,5 @@ body {
 /* Utility class untuk menyembunyikan elemen */
 .hidden {
     display: none;
+
 }
