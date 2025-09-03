@@ -1,0 +1,140 @@
+/* --- Variabel Global untuk Tema --- */
+:root {
+    --background-start: #f4f4f4;
+    --background-end: #e9e9e9;
+    --container-bg: #FF6B00;
+    --text-primary: #1a1a1a;
+    --text-secondary: #555555;
+    
+    /* [DIUBAH] Warna link disesuaikan dengan tema SHOPER */
+    --brand-primary: #FF6B00;
+    --brand-secondary: #FF8E40;
+    --link-text: #ffffff;
+    
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --font-family: 'Poppins', sans-serif;
+}
+
+/* --- Reset & Pengaturan Dasar --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    background-image: linear-gradient(135deg, var(--background-start), var(--background-end));
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 32px 16px;
+}
+
+/* --- Kontainer Utama --- */
+.container {
+    width: 100%;
+    max-width: 680px;
+    text-align: center;
+}
+
+/* --- Bagian Profil --- */
+.profile-container {
+    background-color: linear-gradient(45deg, var(--brand-primary), var(--brand-secondary));
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s 0.2s forwards;
+}
+
+.profile-picture {
+    background-color: #FF6B00;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.user-name {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.user-bio {
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+/* --- Kontainer Link --- */
+.links-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.link-item {
+    display: block;
+    /* [DIUBAH] Menggunakan gradasi oranye */
+    background: linear-gradient(45deg, var(--brand-primary), var(--brand-secondary));
+    color: var(--link-text);
+    padding: 18px 24px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    transition: transform 0.2s ease-in-out, filter 0.2s ease;
+    
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s forwards;
+}
+
+.link-item:hover {
+    transform: scale(1.03);
+    /* [DIUBAH] Efek hover yang sama seperti di ekstensi */
+    filter: brightness(1.1);
+}
+
+/* --- Bagian Ikon Sosial Media --- */
+.socials-container {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 40px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s 1s forwards;
+}
+
+.social-icon {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 28px;
+    transition: transform 0.2s ease-in-out, color 0.2s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.2);
+    /* [DIUBAH] Warna hover menjadi oranye */
+    color: var(--brand-primary);
+}
+
+.social-icon svg {
+    width: 28px;
+    height: 28px;
+    fill: currentColor;
+}
+
+/* --- Animasi --- */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
