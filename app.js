@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const linksData = [
         {
-            title: "Cara Penggunaan",
+            title: "Fitur & Cara Penggunaan",
             url: "https://shoper.myscalev.com/shoper-shopee-product-research-tool"
         },
         {
@@ -96,4 +96,5 @@ document.addEventListener('DOMContentLoaded', function() {
     renderSocials();
 
 });
+
 
