@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const linksData = [
         {
-            title: "Fitur & Cara Penggunaan",
+            title: "Cara Penggunaan",
             url: "https://shoper.myscalev.com/shoper-shopee-product-research-tool"
         },
         {
@@ -94,7 +94,38 @@ document.addEventListener('DOMContentLoaded', function() {
     renderProfile();
     renderLinks();
     renderSocials();
+    document.addEventListener('DOMContentLoaded', function() {
+    // ... semua kode render Anda yang sudah ada tetap di sini ...
+
+    // Cek apakah URL mengandung parameter '?ref=install'
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('ref') === 'install') {
+        
+        // Dapatkan elemen-elemen modal
+        const modal = document.getElementById('welcome-modal');
+        const overlay = document.getElementById('welcome-modal-overlay');
+        const closeBtn = document.getElementById('modal-close-btn');
+
+        // Fungsi untuk menampilkan modal
+        function showModal() {
+            modal.classList.remove('hidden');
+            overlay.classList.remove('hidden');
+        }
+
+        // Fungsi untuk menyembunyikan modal
+        function hideModal() {
+            modal.classList.add('hidden');
+            overlay.classList.add('hidden');
+        }
+
+        // Tampilkan modal setelah halaman dimuat sebentar
+        setTimeout(showModal, 500); // Jeda 0.5 detik untuk efek dramatis
+
+        // Tambahkan event listener untuk menutup modal
+        closeBtn.addEventListener('click', hideModal);
+        overlay.addEventListener('click', hideModal);
+    }
+        });
 
 });
-
 
