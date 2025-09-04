@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // ====================================================================
 
     const profileData = {
-        // [DIPERBAIKI] Properti 'name' dan 'picture' dihapus karena sudah tidak digunakan
         bio: "Simple | Mudah di-pahami | Powerfull"
     };
 

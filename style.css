@@ -233,11 +233,7 @@ body {
     display: none;
 }
 
-/* =============================================== */
-/* [BARU] GAYA UNTUK BAGIAN UNBIND */
-/* =============================================== */
-
-/* Membuat container menjadi overlay gelap */
+/* --- Gaya untuk Halaman Uninstall (Unbind) --- */
 .unbind-container {
     position: fixed;
     top: 0;
@@ -280,16 +276,22 @@ body {
     padding: 14px 24px;
     font-size: 16px;
     font-weight: 700;
-    color: var(--button-text);
-    background: linear-gradient(45deg, var(--brand-primary), var(--brand-secondary));
     border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
+    color: var(--link-text);
+    background: linear-gradient(45deg, var(--brand-primary), var(--brand-secondary));
 }
 
 .unbind-modal .primary-button:hover {
     filter: brightness(1.1);
+}
+
+.unbind-modal .message {
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 #unbind-thanks h3 {
@@ -298,6 +300,9 @@ body {
     color: var(--success-text);
 }
 
+#unbind-thanks p {
+    font-size: 16px;
+}
 .hidden {
     display: none !important;
 }
