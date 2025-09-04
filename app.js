@@ -85,30 +85,49 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     // Struktur logika untuk mendeteksi mode halaman
-     const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(window.location.search);
     
     if (params.get('ref') === 'install') {
+        // Tampilkan konten normal DULU
         renderProfile();
         renderLinks();
         renderSocials();
-        // ...logika modal 'Terima Kasih' Anda...
+        
+        // BARU tampilkan modal di atasnya
+        const modal = document.getElementById('welcome-modal');
+        const overlay = document.getElementById('welcome-modal-overlay');
+        const closeBtn = document.getElementById('modal-close-btn');
+
+        function showModal() {
+            modal.classList.remove('hidden');
+            overlay.classList.remove('hidden');
+        }
+        function hideModal() {
+            modal.classList.add('hidden');
+            overlay.classList.add('hidden');
+        }
+
+        setTimeout(showModal, 500);
+        closeBtn.addEventListener('click', hideModal);
+
     } else if (params.get('from') === 'uninstall') {
         handleUninstallFlow();
     } else {
+        // Pengunjung biasa hanya melihat konten normal
         renderProfile();
         renderLinks();
         renderSocials();
     }
 
-    // Fungsi untuk alur uninstall
+    // --- [DIPERBAIKI] Fungsi untuk alur uninstall ---
     function handleUninstallFlow() {
-        // Sembunyikan konten utama, tampilkan kontainer unbind
+        // 1. Sembunyikan konten utama, tampilkan kontainer unbind
         document.getElementById('profile').classList.add('hidden');
         document.getElementById('links-container').classList.add('hidden');
         document.getElementById('socials-container').classList.add('hidden');
         document.getElementById('unbind-section').classList.remove('hidden');
 
-        // Dapatkan semua elemen yang dibutuhkan
+        // 2. Dapatkan semua elemen yang dibutuhkan
         const unbindLoggedOut = document.getElementById('unbind-logged-out');
         const unbindLoggedIn = document.getElementById('unbind-logged-in');
         const userEmailSpan = document.getElementById('user-email-span');
@@ -117,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const unbindAction = document.getElementById('unbind-action');
         const unbindThanks = document.getElementById('unbind-thanks');
 
-        // Fungsi untuk mengecek sesi dan menampilkan UI yang sesuai
+        // 3. Fungsi untuk mengecek sesi dan menampilkan UI yang sesuai
         async function checkSessionAndShowUI() {
             const { data: { session } } = await supabase.auth.getSession();
             if (session && session.user) {
@@ -127,17 +146,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 unbindLoggedIn.classList.remove('hidden');
             } else {
                 // Jika TIDAK ADA sesi, tampilkan UI "Login dulu"
+                // Tidak ada lagi panggilan renderProfile(), dll. di sini
                 unbindLoggedIn.classList.add('hidden');
                 unbindLoggedOut.classList.remove('hidden');
             }
         }
 
-        // Event listener untuk tombol login
+        // 4. Event listener untuk tombol-tombol
         unbindLoginBtn.addEventListener('click', async () => {
             await supabase.auth.signInWithOAuth({ provider: 'google' });
         });
 
-        // Event listener untuk tombol lepaskan tautan
         unbindDeviceBtn.addEventListener('click', async () => {
             unbindDeviceBtn.textContent = 'Memproses...';
             unbindDeviceBtn.disabled = true;
@@ -156,13 +175,12 @@ document.addEventListener('DOMContentLoaded', function() {
             await supabase.auth.signOut();
         });
 
-        // Jalankan pengecekan sesi saat halaman dimuat
+        // 5. Jalankan pengecekan sesi saat halaman dimuat
         checkSessionAndShowUI();
-
-        // Juga, periksa perubahan status otentikasi (misal: setelah login via Google)
+        
+        // 6. Juga, periksa perubahan status otentikasi
         supabase.auth.onAuthStateChange((_event, session) => {
             checkSessionAndShowUI();
         });
     }
 });
-
