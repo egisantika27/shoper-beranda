@@ -237,30 +237,46 @@ body {
 /* [BARU] GAYA UNTUK BAGIAN UNBIND */
 /* =============================================== */
 
+/* Membuat container menjadi overlay gelap */
 .unbind-container {
-    margin-top: 40px;
-    padding: 24px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 16px;
+    margin-top: 0;
+}
+
+.unbind-modal {
+    width: 100%;
+    max-width: 500px;
+    padding: 32px;
     background-color: var(--container-bg);
     border-radius: 16px;
-    box-shadow: 0 4px 20px var(--shadow-color);
-    border: 1px solid #e5e7eb;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
 
-.unbind-container h2 {
-    font-size: 22px;
+.unbind-modal h2 {
+    font-size: 24px;
     margin-bottom: 12px;
 }
 
-.unbind-container p {
+.unbind-modal p {
     color: var(--text-secondary);
     margin-bottom: 24px;
     line-height: 1.6;
 }
 
-.unbind-container button {
+.unbind-modal .primary-button {
     width: 100%;
-    max-width: 300px; /* Agar tombol tidak terlalu lebar di desktop */
+    max-width: 300px;
     padding: 14px 24px;
     font-size: 16px;
     font-weight: 700;
@@ -272,14 +288,14 @@ body {
     transition: all 0.2s ease;
 }
 
-.unbind-container button:hover {
+.unbind-modal .primary-button:hover {
     filter: brightness(1.1);
 }
 
-.unbind-container .message {
-    margin-top: 20px;
-    font-size: 14px;
-    font-weight: 500;
+#unbind-thanks h3 {
+    margin-bottom: 8px;
+    font-size: 22px;
+    color: var(--success-text);
 }
 
 .hidden {

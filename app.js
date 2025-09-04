@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ====================================================================
 
     const profileData = {
-        name: "SHOPER – Shopee Product Research Tool",
+        // [DIPERBAIKI] Properti 'name' dan 'picture' dihapus karena sudah tidak digunakan
         bio: "Simple | Mudah di-pahami | Powerfull"
     };
 
@@ -123,62 +123,49 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Fungsi untuk alur uninstall
-    function handleUninstallFlow() {
-        // Sembunyikan konten utama
+    async function handleUninstallFlow() {
+        const { data: { session } } = await supabase.auth.getSession();
+
+        // **Logika Kunci**: Hanya lanjutkan jika ada sesi aktif.
+        if (!session || !session.user) {
+            // Tampilkan konten normal jika tidak ada sesi
+            renderProfile();
+            renderLinks();
+            renderSocials();
+            return; 
+        }
+
+        // --- Jika ada sesi, lanjutkan dengan alur unbind ---
         document.getElementById('profile').classList.add('hidden');
         document.getElementById('links-container').classList.add('hidden');
         document.getElementById('socials-container').classList.add('hidden');
 
-        // Dapatkan elemen-elemen unbind
         const unbindSection = document.getElementById('unbind-section');
-        const unbindLoggedOut = document.getElementById('unbind-logged-out');
-        const unbindLoggedIn = document.getElementById('unbind-logged-in');
         const userEmailSpan = document.getElementById('user-email-span');
-        const unbindMessage = document.getElementById('unbind-message');
-        const unbindLoginBtn = document.getElementById('unbind-login-btn');
+        const unbindAction = document.getElementById('unbind-action');
         const unbindDeviceBtn = document.getElementById('unbind-device-btn');
+        const unbindThanks = document.getElementById('unbind-thanks');
         
-        // Tampilkan kontainer utama
+        userEmailSpan.textContent = session.user.email;
         unbindSection.classList.remove('hidden');
-
-        async function checkSessionAndShowUI() {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session && session.user) {
-                userEmailSpan.textContent = session.user.email;
-                unbindLoggedOut.classList.add('hidden');
-                unbindLoggedIn.classList.remove('hidden');
-            } else {
-                unbindLoggedIn.classList.add('hidden');
-                unbindLoggedOut.classList.remove('hidden');
-            }
-        }
-
-        unbindLoginBtn.addEventListener('click', async () => {
-            await supabase.auth.signInWithOAuth({ provider: 'google' });
-        });
 
         unbindDeviceBtn.addEventListener('click', async () => {
             unbindDeviceBtn.textContent = 'Memproses...';
             unbindDeviceBtn.disabled = true;
-            unbindMessage.textContent = '';
             
-            const { data, error } = await supabase.functions.invoke('logout-and-unbind');
+            const { error } = await supabase.functions.invoke('logout-and-unbind');
             
+            unbindAction.classList.add('hidden');
+            unbindThanks.classList.remove('hidden');
+
             if (error) {
-                unbindMessage.textContent = `Gagal: ${error.message}`;
-                unbindMessage.style.color = 'var(--error-text)';
-            } else {
-                unbindMessage.textContent = "Sukses! Akun Anda telah dilepaskan. Anda bisa login di perangkat baru.";
-                unbindMessage.style.color = 'var(--success-text)';
-                await supabase.auth.signOut();
-                unbindLoggedIn.classList.add('hidden');
+                const thanksP = unbindThanks.querySelector('p');
+                thanksP.textContent = `Gagal melepaskan tautan: ${error.message}`;
+                thanksP.style.color = 'var(--error-text)';
             }
             
-            unbindDeviceBtn.textContent = 'Lepaskan Ikatan Perangkat';
-            unbindDeviceBtn.disabled = false;
+            await supabase.auth.signOut();
         });
-
-        checkSessionAndShowUI();
     }
 });
 

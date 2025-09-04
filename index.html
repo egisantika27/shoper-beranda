@@ -48,24 +48,21 @@
         <!-- Bagian Ikon Sosial Media -->
         <footer id="socials-container" class="socials-container"></footer>
 		<section id="unbind-section" class="unbind-container hidden">
-    
-			<!-- Tampilan jika pengguna BELUM LOGIN -->
-			<div id="unbind-logged-out" class="hidden">
-				<h2>Ingin Pindah Perangkat?</h2>
-				<p>Jika Anda berencana menginstal ulang di profil Chrome lain, Anda perlu <strong>login terlebih dahulu</strong> untuk melepaskan akun Anda dari perangkat lama.</p>
-				<button id="unbind-login-btn" class="primary-button">Login untuk Melepaskan Ikatan</button>
-			</div>
-
-			<!-- Tampilan jika pengguna SUDAH LOGIN -->
-			<div id="unbind-logged-in" class="hidden">
-				<h2>Halo, <span id="user-email-span"></span>!</h2>
-				<p>Akun Anda saat ini mungkin masih terikat ke profil Chrome yang lama. Klik tombol di bawah untuk melepaskan ikatan tersebut.</p>
-				<button id="unbind-device-btn" class="primary-button">Lepaskan Ikatan Perangkat</button>
-			</div>
-
-			<!-- Untuk menampilkan pesan sukses atau error -->
-			<div id="unbind-message" class="message"></div>
-		</section>
+            <div class="unbind-modal">
+                <h2>Satu Langkah Terakhir...</h2>
+                <p>
+                    Akun Anda (<strong id="user-email-span"></strong>) mungkin masih tertaut ke perangkat ini.
+                    Agar bisa login kembali di perangkat baru, silakan lepaskan tautan.
+                </p>
+                <div id="unbind-action">
+                    <button id="unbind-device-btn" class="primary-button">Lepaskan Tautan Akun</button>
+                </div>
+                <div id="unbind-thanks" class="hidden">
+                    <h3>Terima Kasih!</h3>
+                    <p>Tautan akun Anda telah berhasil dilepaskan. Sampai jumpa lagi!</p>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Kode untuk Modal Popup Terima Kasih -->
