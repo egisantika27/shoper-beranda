@@ -48,7 +48,16 @@
         <!-- Bagian Ikon Sosial Media -->
         <footer id="socials-container" class="socials-container"></footer>
 		<section id="unbind-section" class="unbind-container hidden">
-            <div class="unbind-modal">
+    
+            <!-- Tampilan jika pengguna BELUM LOGIN -->
+            <div id="unbind-logged-out" class="hidden">
+                <h2>Ingin Pindah Perangkat?</h2>
+                <p>Jika Anda berencana menginstal ulang di profil Chrome lain, Anda perlu <strong>login terlebih dahulu</strong> untuk melepaskan akun Anda dari perangkat lama.</p>
+                <button id="unbind-login-btn" class="primary-button">Login untuk Melepaskan Ikatan</button>
+            </div>
+
+            <!-- Tampilan jika pengguna SUDAH LOGIN -->
+            <div id="unbind-logged-in" class="hidden">
                 <h2>Satu Langkah Terakhir...</h2>
                 <p>
                     Akun Anda (<strong id="user-email-span"></strong>) mungkin masih tertaut ke perangkat ini.

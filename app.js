@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Logika Aplikasi
     // ====================================================================
 
-    // [DIPERBAIKI] Hanya ada satu fungsi renderProfile yang benar
+    // Hanya ada satu fungsi renderProfile yang benar
     function renderProfile() {
         document.getElementById('user-bio').textContent = profileData.bio;
         document.title = `SHOPER – Shopee Product Research Tool | Beranda`;
@@ -84,71 +84,60 @@ document.addEventListener('DOMContentLoaded', function() {
             socialsContainer.appendChild(socialElement);
         });
     }
-
-    // [DIPERBAIKI] Struktur logika untuk mendeteksi mode halaman
-    const params = new URLSearchParams(window.location.search);
+    // Struktur logika untuk mendeteksi mode halaman
+     const params = new URLSearchParams(window.location.search);
     
-    // Mode 1: Pengguna datang setelah instalasi
     if (params.get('ref') === 'install') {
         renderProfile();
         renderLinks();
         renderSocials();
-        
-        const modal = document.getElementById('welcome-modal');
-        const overlay = document.getElementById('welcome-modal-overlay');
-        const closeBtn = document.getElementById('modal-close-btn');
-
-        function showModal() {
-            modal.classList.remove('hidden');
-            overlay.classList.remove('hidden');
-        }
-
-        function hideModal() {
-            modal.classList.add('hidden');
-            overlay.classList.add('hidden');
-        }
-
-        setTimeout(showModal, 500);
-        closeBtn.addEventListener('click', hideModal);
-    }
-    // Mode 2: Pengguna datang setelah uninstall
-    else if (params.get('from') === 'uninstall') {
+        // ...logika modal 'Terima Kasih' Anda...
+    } else if (params.get('from') === 'uninstall') {
         handleUninstallFlow();
-    }
-    // Mode 3: Pengunjung Biasa (default)
-    else {
+    } else {
         renderProfile();
         renderLinks();
         renderSocials();
     }
 
     // Fungsi untuk alur uninstall
-    async function handleUninstallFlow() {
-        const { data: { session } } = await supabase.auth.getSession();
-
-        // **Logika Kunci**: Hanya lanjutkan jika ada sesi aktif.
-        if (!session || !session.user) {
-            // Tampilkan konten normal jika tidak ada sesi
-            renderProfile();
-            renderLinks();
-            renderSocials();
-            return; 
-        }
-
-        // --- Jika ada sesi, lanjutkan dengan alur unbind ---
+    function handleUninstallFlow() {
+        // Sembunyikan konten utama, tampilkan kontainer unbind
         document.getElementById('profile').classList.add('hidden');
         document.getElementById('links-container').classList.add('hidden');
         document.getElementById('socials-container').classList.add('hidden');
+        document.getElementById('unbind-section').classList.remove('hidden');
 
-        const unbindSection = document.getElementById('unbind-section');
+        // Dapatkan semua elemen yang dibutuhkan
+        const unbindLoggedOut = document.getElementById('unbind-logged-out');
+        const unbindLoggedIn = document.getElementById('unbind-logged-in');
         const userEmailSpan = document.getElementById('user-email-span');
-        const unbindAction = document.getElementById('unbind-action');
+        const unbindLoginBtn = document.getElementById('unbind-login-btn');
         const unbindDeviceBtn = document.getElementById('unbind-device-btn');
+        const unbindAction = document.getElementById('unbind-action');
         const unbindThanks = document.getElementById('unbind-thanks');
-        
-        userEmailSpan.textContent = session.user.email;
-        unbindSection.classList.remove('hidden');
 
+        // Fungsi untuk mengecek sesi dan menampilkan UI yang sesuai
+        async function checkSessionAndShowUI() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session && session.user) {
+                // Jika ADA sesi, tampilkan UI "Lepaskan Tautan"
+                userEmailSpan.textContent = session.user.email;
+                unbindLoggedOut.classList.add('hidden');
+                unbindLoggedIn.classList.remove('hidden');
+            } else {
+                // Jika TIDAK ADA sesi, tampilkan UI "Login dulu"
+                unbindLoggedIn.classList.add('hidden');
+                unbindLoggedOut.classList.remove('hidden');
+            }
+        }
+
+        // Event listener untuk tombol login
+        unbindLoginBtn.addEventListener('click', async () => {
+            await supabase.auth.signInWithOAuth({ provider: 'google' });
+        });
+
+        // Event listener untuk tombol lepaskan tautan
         unbindDeviceBtn.addEventListener('click', async () => {
             unbindDeviceBtn.textContent = 'Memproses...';
             unbindDeviceBtn.disabled = true;
@@ -165,6 +154,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             await supabase.auth.signOut();
+        });
+
+        // Jalankan pengecekan sesi saat halaman dimuat
+        checkSessionAndShowUI();
+
+        // Juga, periksa perubahan status otentikasi (misal: setelah login via Google)
+        supabase.auth.onAuthStateChange((_event, session) => {
+            checkSessionAndShowUI();
         });
     }
 });
