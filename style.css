@@ -249,9 +249,10 @@ body {
     margin-top: 0;
 }
 
+/* Kartu modal di tengah */
 .unbind-modal {
     width: 100%;
-    max-width: 500px;
+    max-width: 420px; /* Sedikit lebih lebar untuk form */
     padding: 32px;
     background-color: var(--container-bg);
     border-radius: 16px;
@@ -270,9 +271,38 @@ body {
     line-height: 1.6;
 }
 
+/* Gaya untuk grup form di dalam modal */
+.unbind-modal .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.unbind-modal label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+}
+
+.unbind-modal input {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.unbind-modal input:focus {
+    outline: none;
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.15);
+}
+
+/* Tombol utama di dalam modal */
 .unbind-modal .primary-button {
     width: 100%;
-    max-width: 300px;
     padding: 14px 24px;
     font-size: 16px;
     font-weight: 700;
@@ -288,12 +318,20 @@ body {
     filter: brightness(1.1);
 }
 
+.unbind-modal .primary-button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+    filter: grayscale(40%);
+}
+
+/* Pesan error di dalam form */
 .unbind-modal .message {
-    margin-top: 20px;
+    margin-top: 16px;
     font-size: 14px;
     font-weight: 500;
 }
 
+/* Gaya untuk pesan "Terima Kasih" setelah berhasil */
 #unbind-thanks h3 {
     margin-bottom: 8px;
     font-size: 22px;

@@ -126,60 +126,54 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('socials-container').classList.add('hidden');
         document.getElementById('unbind-section').classList.remove('hidden');
 
-        // 2. Dapatkan semua elemen yang dibutuhkan
-        const unbindLoggedOut = document.getElementById('unbind-logged-out');
-        const unbindLoggedIn = document.getElementById('unbind-logged-in');
-        const userEmailSpan = document.getElementById('user-email-span');
-        const unbindLoginBtn = document.getElementById('unbind-login-btn');
+        // 2. Dapatkan elemen-elemen form
+        const unbindForm = document.getElementById('unbind-form');
+        const unbindEmailInput = document.getElementById('unbind-email');
+        const unbindPasswordInput = document.getElementById('unbind-password');
         const unbindDeviceBtn = document.getElementById('unbind-device-btn');
-        const unbindAction = document.getElementById('unbind-action');
+        const unbindMessage = document.getElementById('unbind-message');
+        const unbindFormContainer = document.getElementById('unbind-form-container');
         const unbindThanks = document.getElementById('unbind-thanks');
 
-        // 3. Fungsi untuk mengecek sesi dan menampilkan UI yang sesuai
-        async function checkSessionAndShowUI() {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session && session.user) {
-                // Jika ADA sesi, tampilkan UI "Lepaskan Tautan"
-                userEmailSpan.textContent = session.user.email;
-                unbindLoggedOut.classList.add('hidden');
-                unbindLoggedIn.classList.remove('hidden');
-            } else {
-                // Jika TIDAK ADA sesi, tampilkan UI "Login dulu"
-                // Tidak ada lagi panggilan renderProfile(), dll. di sini
-                unbindLoggedIn.classList.add('hidden');
-                unbindLoggedOut.classList.remove('hidden');
-            }
-        }
-
-        // 4. Event listener untuk tombol-tombol
-        unbindLoginBtn.addEventListener('click', async () => {
-            await supabase.auth.signInWithOAuth({ provider: 'google' });
-        });
-
-        unbindDeviceBtn.addEventListener('click', async () => {
+        // 3. Tambahkan event listener ke form
+        unbindForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            unbindMessage.textContent = '';
             unbindDeviceBtn.textContent = 'Memproses...';
             unbindDeviceBtn.disabled = true;
-            
-            const { error } = await supabase.functions.invoke('logout-and-unbind');
-            
-            unbindAction.classList.add('hidden');
-            unbindThanks.classList.remove('hidden');
 
-            if (error) {
-                const thanksP = unbindThanks.querySelector('p');
-                thanksP.textContent = `Gagal melepaskan tautan: ${error.message}`;
-                thanksP.style.color = 'var(--error-text)';
+            const email = unbindEmailInput.value;
+            const password = unbindPasswordInput.value;
+
+            try {
+                // Langkah A: Coba login untuk verifikasi
+                const { error: signInError } = await supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password,
+                });
+
+                if (signInError) {
+                    throw new Error("Email atau password salah. Coba lagi.");
+                }
+
+                // Langkah B: Jika login berhasil, panggil Edge Function
+                const { error: unbindError } = await supabase.functions.invoke('logout-and-unbind');
+                
+                if (unbindError) {
+                    throw new Error(unbindError.message);
+                }
+
+                // Langkah C: Tampilkan pesan sukses
+                unbindFormContainer.classList.add('hidden');
+                unbindThanks.classList.remove('hidden');
+                await supabase.auth.signOut();
+
+            } catch (error) {
+                unbindMessage.textContent = `Gagal: ${error.message}`;
+                unbindMessage.style.color = 'var(--error-text)';
+                unbindDeviceBtn.textContent = 'Lepaskan Tautan Akun';
+                unbindDeviceBtn.disabled = false;
             }
-            
-            await supabase.auth.signOut();
-        });
-
-        // 5. Jalankan pengecekan sesi saat halaman dimuat
-        checkSessionAndShowUI();
-        
-        // 6. Juga, periksa perubahan status otentikasi
-        supabase.auth.onAuthStateChange((_event, session) => {
-            checkSessionAndShowUI();
         });
     }
 });

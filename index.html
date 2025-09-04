@@ -48,27 +48,26 @@
         <!-- Bagian Ikon Sosial Media -->
         <footer id="socials-container" class="socials-container"></footer>
 		<section id="unbind-section" class="unbind-container hidden">
-    
-            <!-- Tampilan jika pengguna BELUM LOGIN -->
-            <div id="unbind-logged-out" class="hidden">
-                <h2>Ingin Pindah Perangkat?</h2>
-                <p>Jika Anda berencana menginstal ulang di profil Chrome lain, Anda perlu <strong>login terlebih dahulu</strong> untuk melepaskan akun Anda dari perangkat lama.</p>
-                <button id="unbind-login-btn" class="primary-button">Login untuk Melepaskan Ikatan</button>
-            </div>
-
-            <!-- Tampilan jika pengguna SUDAH LOGIN -->
-            <div id="unbind-logged-in" class="hidden">
-                <h2>Satu Langkah Terakhir...</h2>
-                <p>
-                    Akun Anda (<strong id="user-email-span"></strong>) mungkin masih tertaut ke perangkat ini.
-                    Agar bisa login kembali di perangkat baru, silakan lepaskan tautan.
-                </p>
-                <div id="unbind-action">
-                    <button id="unbind-device-btn" class="primary-button">Lepaskan Tautan Akun</button>
+            <div class="unbind-modal">
+                <div id="unbind-form-container">
+                    <h2>Satu Langkah Terakhir...</h2>
+                    <p>Agar bisa login kembali di perangkat baru nanti, silakan lepaskan tautan akun Anda dengan memasukkan email dan password.</p>
+                    <form id="unbind-form">
+                        <div class="form-group">
+                            <label for="unbind-email">Email</label>
+                            <input type="email" id="unbind-email" required placeholder="nama@contoh.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="unbind-password">Password (PIN 6 Angka)</label>
+                            <input type="password" id="unbind-password" required placeholder="••••••">
+                        </div>
+                        <button type="submit" id="unbind-device-btn" class="primary-button">Lepaskan Tautan Akun</button>
+                    </form>
+                    <div id="unbind-message" class="message"></div>
                 </div>
                 <div id="unbind-thanks" class="hidden">
                     <h3>Terima Kasih!</h3>
-                    <p>Tautan akun Anda telah berhasil dilepaskan. Sampai jumpa lagi!</p>
+                    <p>Tautan akun Anda telah berhasil dilepaskan. Terima kasih telah menggunakan SHOPER.</p>
                 </div>
             </div>
         </section>
