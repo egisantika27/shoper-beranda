@@ -7,8 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const profileData = {
         name: "SHOPER – Shopee Product Research Tool",
-        bio: "Simple | Mudah di-pahami | Powerfull",
-        picture: "logo-shoper.png"
+        bio: "Simple | Mudah di-pahami | Powerfull"
     };
 
     const linksData = [
@@ -44,25 +43,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
 
+    // --- Inisialisasi Supabase Client ---
+    const supabase = window.supabase.createClient(
+        'https://psstmdfdoantnlmicvcp.supabase.co', 
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBzc3RtZGZkb2FudG5sbWljdmNwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUzMjMwMzUsImV4cCI6MjA3MDg5OTAzNX0.YJTfXgGmbNdNoNa-77QZfZqbBUNJdZk-x7WGsFW6IJE'
+    );
+    
     // ====================================================================
     // Logika Aplikasi
     // ====================================================================
 
-    // Fungsi untuk merender data profil
+    // [DIPERBAIKI] Hanya ada satu fungsi renderProfile yang benar
     function renderProfile() {
-        document.getElementById('profile-picture').src = profileData.picture;
-        document.getElementById('user-name').textContent = profileData.name;
-        document.getElementById('user-bio').textContent = profileData.bio;
-        document.title = `${profileData.name} | Beranda`;
-    }
-    function renderProfile() {
-        // [DIUBAH] Hanya mengisi bio dan title. Baris untuk gambar dan nama dihapus.
         document.getElementById('user-bio').textContent = profileData.bio;
         document.title = `SHOPER – Shopee Product Research Tool | Beranda`;
     }
 
-
-    // Fungsi untuk merender semua link
     function renderLinks() {
         const linksContainer = document.getElementById('links-container');
         linksData.forEach((link, index) => {
@@ -76,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Fungsi untuk merender ikon sosial media
     function renderSocials() {
         const socialsContainer = document.getElementById('socials-container');
         socialsData.forEach(social => {
@@ -90,37 +85,100 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Panggil semua fungsi render saat halaman siap
-    renderProfile();
-    renderLinks();
-    renderSocials();
-    
-    // --- Logika Popup ---
-    
-    // Cek apakah URL mengandung parameter '?ref=install'
+    // [DIPERBAIKI] Struktur logika untuk mendeteksi mode halaman
     const params = new URLSearchParams(window.location.search);
+    
+    // Mode 1: Pengguna datang setelah instalasi
     if (params.get('ref') === 'install') {
+        renderProfile();
+        renderLinks();
+        renderSocials();
         
-        // Dapatkan elemen-elemen modal
         const modal = document.getElementById('welcome-modal');
         const overlay = document.getElementById('welcome-modal-overlay');
         const closeBtn = document.getElementById('modal-close-btn');
 
-        // Fungsi untuk menampilkan modal
         function showModal() {
             modal.classList.remove('hidden');
             overlay.classList.remove('hidden');
         }
 
-        // Fungsi untuk menyembunyikan modal
         function hideModal() {
             modal.classList.add('hidden');
             overlay.classList.add('hidden');
         }
 
-        // Tampilkan modal setelah halaman dimuat sebentar
-        setTimeout(showModal, 500); // Jeda 0.5 detik untuk efek dramatis
+        setTimeout(showModal, 500);
         closeBtn.addEventListener('click', hideModal);
+    }
+    // Mode 2: Pengguna datang setelah uninstall
+    else if (params.get('from') === 'uninstall') {
+        handleUninstallFlow();
+    }
+    // Mode 3: Pengunjung Biasa (default)
+    else {
+        renderProfile();
+        renderLinks();
+        renderSocials();
+    }
+
+    // Fungsi untuk alur uninstall
+    function handleUninstallFlow() {
+        // Sembunyikan konten utama
+        document.getElementById('profile').classList.add('hidden');
+        document.getElementById('links-container').classList.add('hidden');
+        document.getElementById('socials-container').classList.add('hidden');
+
+        // Dapatkan elemen-elemen unbind
+        const unbindSection = document.getElementById('unbind-section');
+        const unbindLoggedOut = document.getElementById('unbind-logged-out');
+        const unbindLoggedIn = document.getElementById('unbind-logged-in');
+        const userEmailSpan = document.getElementById('user-email-span');
+        const unbindMessage = document.getElementById('unbind-message');
+        const unbindLoginBtn = document.getElementById('unbind-login-btn');
+        const unbindDeviceBtn = document.getElementById('unbind-device-btn');
+        
+        // Tampilkan kontainer utama
+        unbindSection.classList.remove('hidden');
+
+        async function checkSessionAndShowUI() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session && session.user) {
+                userEmailSpan.textContent = session.user.email;
+                unbindLoggedOut.classList.add('hidden');
+                unbindLoggedIn.classList.remove('hidden');
+            } else {
+                unbindLoggedIn.classList.add('hidden');
+                unbindLoggedOut.classList.remove('hidden');
+            }
+        }
+
+        unbindLoginBtn.addEventListener('click', async () => {
+            await supabase.auth.signInWithOAuth({ provider: 'google' });
+        });
+
+        unbindDeviceBtn.addEventListener('click', async () => {
+            unbindDeviceBtn.textContent = 'Memproses...';
+            unbindDeviceBtn.disabled = true;
+            unbindMessage.textContent = '';
+            
+            const { data, error } = await supabase.functions.invoke('logout-and-unbind');
+            
+            if (error) {
+                unbindMessage.textContent = `Gagal: ${error.message}`;
+                unbindMessage.style.color = 'var(--error-text)';
+            } else {
+                unbindMessage.textContent = "Sukses! Akun Anda telah dilepaskan. Anda bisa login di perangkat baru.";
+                unbindMessage.style.color = 'var(--success-text)';
+                await supabase.auth.signOut();
+                unbindLoggedIn.classList.add('hidden');
+            }
+            
+            unbindDeviceBtn.textContent = 'Lepaskan Ikatan Perangkat';
+            unbindDeviceBtn.disabled = false;
+        });
+
+        checkSessionAndShowUI();
     }
 });
 

@@ -47,6 +47,25 @@
 
         <!-- Bagian Ikon Sosial Media -->
         <footer id="socials-container" class="socials-container"></footer>
+		<section id="unbind-section" class="unbind-container hidden">
+    
+			<!-- Tampilan jika pengguna BELUM LOGIN -->
+			<div id="unbind-logged-out" class="hidden">
+				<h2>Ingin Pindah Perangkat?</h2>
+				<p>Jika Anda berencana menginstal ulang di profil Chrome lain, Anda perlu <strong>login terlebih dahulu</strong> untuk melepaskan akun Anda dari perangkat lama.</p>
+				<button id="unbind-login-btn" class="primary-button">Login untuk Melepaskan Ikatan</button>
+			</div>
+
+			<!-- Tampilan jika pengguna SUDAH LOGIN -->
+			<div id="unbind-logged-in" class="hidden">
+				<h2>Halo, <span id="user-email-span"></span>!</h2>
+				<p>Akun Anda saat ini mungkin masih terikat ke profil Chrome yang lama. Klik tombol di bawah untuk melepaskan ikatan tersebut.</p>
+				<button id="unbind-device-btn" class="primary-button">Lepaskan Ikatan Perangkat</button>
+			</div>
+
+			<!-- Untuk menampilkan pesan sukses atau error -->
+			<div id="unbind-message" class="message"></div>
+		</section>
     </main>
 
     <!-- Kode untuk Modal Popup Terima Kasih -->
@@ -58,6 +77,7 @@
     </div>
 
     <!-- Hubungkan ke file JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="app.js"></script>
 </body>
 </html>

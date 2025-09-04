@@ -232,3 +232,56 @@ body {
 .hidden {
     display: none;
 }
+
+/* =============================================== */
+/* [BARU] GAYA UNTUK BAGIAN UNBIND */
+/* =============================================== */
+
+.unbind-container {
+    margin-top: 40px;
+    padding: 24px;
+    background-color: var(--container-bg);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px var(--shadow-color);
+    border: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+.unbind-container h2 {
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.unbind-container p {
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+.unbind-container button {
+    width: 100%;
+    max-width: 300px; /* Agar tombol tidak terlalu lebar di desktop */
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--button-text);
+    background: linear-gradient(45deg, var(--brand-primary), var(--brand-secondary));
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.unbind-container button:hover {
+    filter: brightness(1.1);
+}
+
+.unbind-container .message {
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.hidden {
+    display: none !important;
+}
