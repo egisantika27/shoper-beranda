@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+	<script>
+	(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-5LK8C2GD');
+	</script>
+	
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHOPER – Shopee Product Research Tool | Beranda</title>
+    
+    <!-- Deskripsi untuk SEO -->
+    <meta name="description" content="Temukan semua link penting dan informasi tentang SHOPER, alat riset produk Shopee yang powerfull.">
+    
+    <!-- Meta Tag Open Graph untuk Preview Link -->
+    <meta property="og:title" content="SHOPER – Shopee Product Research Tool">
+    <meta property="og:description" content="Simple | Mudah di-pahami | Powerfull. Alat riset produk untuk Shopee.">
+    <meta property="og:image" content="https://shoper-beranda.vercel.app/icon-shoper.png">
+    <meta property="og:url" content="https://shoper-beranda.vercel.app">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Hubungkan ke file CSS -->
+    <link rel="stylesheet" href="https://shoper-beranda.vercel.app/style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://shoper-beranda.vercel.app/icon-shoper.png" type="image/png">
+</head>
+<body>
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5LK8C2GD"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+	
+    <main class="container">
+        <!-- Bagian Profil -->
+        <header id="profile" class="profile-container">
+            <div class="header-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="logo-icon">
+                    <path d="M3 3v18h18"/><path d="M7 12v5h12V8l-5 5-4-4Z"/>
+                </svg>
+                <h1>SHOPER</h1>
+            </div>
+            <h1 id="user-name" class="user-name">Shopee Product Research Tool</h1>
+            <p id="user-bio" class="user-bio">Simple | Mudah dipahami | Powerfull</p>
+        </header>
+
+        <!-- Kontainer untuk semua link, akan diisi oleh JavaScript -->
+        <section id="links-container" class="links-container"></section>
+
+        <!-- Bagian Ikon Sosial Media -->
+        <footer id="socials-container" class="socials-container"></footer>
+		<section id="unbind-section" class="unbind-container hidden">
+            <div class="unbind-modal">
+                <div id="unbind-form-container">
+                    <h2>Satu Langkah Terakhir...</h2>
+                    <p>Agar bisa login kembali di perangkat baru nanti, silakan lepaskan tautan akun Anda dengan memasukkan email dan password.</p>
+                    <form id="unbind-form">
+                        <div class="form-group">
+                            <label for="unbind-email">Email</label>
+                            <input type="email" id="unbind-email" required placeholder="nama@contoh.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="unbind-password">Password (PIN 6 Angka)</label>
+                            <input type="password" id="unbind-password" required placeholder="••••••">
+                        </div>
+                        <button type="submit" id="unbind-device-btn" class="primary-button">Lepaskan Tautan Akun</button>
+                    </form>
+                    <div id="unbind-message" class="message"></div>
+                </div>
+                <div id="unbind-thanks" class="hidden">
+                    <h3>Terima Kasih!</h3>
+                    <p>Tautan akun Anda telah berhasil dilepaskan. Terima kasih telah menggunakan SHOPER.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Kode untuk Modal Popup Terima Kasih -->
+    <div id="welcome-modal-overlay" class="modal-overlay hidden"></div>
+    <div id="welcome-modal" class="modal hidden">
+        <h2>Terima Kasih! 🙏</h2>
+        <p>Terima kasih telah menginstal ekstensi SHOPER. Kami harap tool ini bisa membantu dan mempermudah pekerjaan Anda.</p>
+        <button id="modal-close-btn" class="modal-button">Mulai Jelajahi</button>
+    </div>
+
+    <!-- Hubungkan ke file JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://shoper-beranda.vercel.app/app.js"></script>
+</body>
+</html>
+
+
+
