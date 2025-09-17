@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const linksData = [
         {
             title: "Fitur & Cara Penggunaan",
-            url: "https://shoper.myscalev.com/shoper-shopee-product-research-tool"
+            url: "https://www.shoper.id"
         },
         {
             title: "Beli Licensi (Seumur Hidup)",
@@ -177,3 +177,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
